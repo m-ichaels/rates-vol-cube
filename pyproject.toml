@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ratesvol"
+version = "0.1.0"
+description = "Rates volatility on the taking side: the basis-point vol cube from listed fixed-income option chains, event variance, the rates variance risk premium and relative-value strategies with measured costs"
+requires-python = ">=3.10"
+dependencies = ["numpy", "pandas", "pyarrow", "duckdb", "scipy", "matplotlib", "fpdf2", "openpyxl", "tzdata"]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[tool.setuptools]
+packages = ["ratesvol"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"
