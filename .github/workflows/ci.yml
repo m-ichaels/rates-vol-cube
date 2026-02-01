@@ -1,0 +1,20 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  test-and-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .[test]
+      - run: python -m pytest
+      - name: the whole pipeline on the checked-in reference data and the sample chains (no downloads)
+        run: |
+          python -m ratesvol run --chains data/sample/chains --fast
+          python scripts/plots.py
+          python scripts/summarize.py
+          python scripts/report.py
+          python -m ratesvol cube --symbol TLT --chains data/sample/chains
+          python -m ratesvol sql "SELECT symbol, COUNT(*) n, AVG(atm_bpvol) atm FROM slices GROUP BY symbol ORDER BY symbol"
