@@ -15,6 +15,5 @@ jobs:
           python -m ratesvol run --chains data/sample/chains --fast
           python scripts/plots.py
           python scripts/summarize.py
-          python scripts/report.py
           python -m ratesvol cube --symbol TLT --chains data/sample/chains
           python -m ratesvol sql "SELECT symbol, COUNT(*) n, AVG(atm_bpvol) atm FROM slices GROUP BY symbol ORDER BY symbol"

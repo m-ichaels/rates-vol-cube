@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Full pipeline: data -> record today's chains -> archive the closes -> run -> figures -> summary -> report -> notebook.
+# Full pipeline: data -> record today's chains -> archive the closes -> run -> figures -> summary -> notebook.
 # Usage: scripts/run_all.sh [--skip-download] [--skip-record]
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -9,7 +9,6 @@ python tools/record.py --archive
 python -m ratesvol run
 python scripts/plots.py
 python scripts/summarize.py
-python scripts/report.py
 python scripts/make_notebook.py
 python -m pytest
 echo done
